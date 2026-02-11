@@ -7,10 +7,11 @@ import (
 )
 
 func main() {
+	build := "2"
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
-		fmt.Print("Pokedex > ")
+		fmt.Printf("Pokedex (build %v)> ", build)
 		scanner.Scan()
 
 		input := cleanInput(scanner.Text())

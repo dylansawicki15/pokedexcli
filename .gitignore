@@ -19,3 +19,5 @@ vendor/
 *.swo
 *~
 .DS_Store
+
+./pokedexcli
