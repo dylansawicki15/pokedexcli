@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
+
+	"github.com/dylansawicki15/pokedexcli/pokecache"
 )
 
 var index = 1
 var pageSize = 20
+var cache = pokecache.NewCache(5 * time.Minute)
 
 type locationAreaResponse struct {
 	Count    int                `json:"count"`
@@ -33,6 +37,16 @@ func fetchPokemonLocationAreas(back bool) ([]locationAreaItem, error) {
 
 	offset := (index - 2) * pageSize
 	endpoint := fmt.Sprintf("https://pokeapi.co/api/v2/location-area?offset=%d&limit=%d", offset, pageSize)
+
+	if data, ok := cache.Get(endpoint); ok {
+		var locationAreaData locationAreaResponse
+		err := json.Unmarshal(data, &locationAreaData)
+		if err != nil {
+			fmt.Printf("Error unmarshalling cached data: %v\n", err)
+			return nil, err
+		}
+		return locationAreaData.Results, nil
+	}
 
 	res, err := http.Get(endpoint)
 	if err != nil {
@@ -60,5 +74,6 @@ func fetchPokemonLocationAreas(back bool) ([]locationAreaItem, error) {
 		return nil, err
 	}
 
+	cache.Add(endpoint, data)
 	return locationAreaData.Results, nil
 }
