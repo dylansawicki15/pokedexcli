@@ -39,6 +39,16 @@ func main() {
 			if err != nil {
 				fmt.Printf("Error exploring area: %v\n", err)
 			}
+		case "catch":
+			if len(input) < 2 {
+				fmt.Println("Please provide a pokemon name to catch.")
+				continue
+			}
+			pokemonName := input[1]
+			err := commandCatch(pokemonName)
+			if err != nil {
+				fmt.Printf("Error catching pokemon: %v\n", err)
+			}
 		default:
 			fmt.Printf("Unknown command: %s\n", input[0])
 		}

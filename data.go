@@ -32,4 +32,9 @@ var supportedCommands = map[string]cliCommand{
 		description: "Explore a location area for Pokemon encounters",
 		callback:    nil,
 	},
+	"catch": {
+		name:        "catch",
+		description: "Catch a Pokemon",
+		callback:    nil,
+	},
 }
