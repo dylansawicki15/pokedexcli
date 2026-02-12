@@ -9,8 +9,10 @@ A tiny Go command-line Pokedex. It is a simple REPL-style app that shows a promp
 ## Build
 
 ```bash
-go build -o pokedexcli .
+make build
 ```
+
+This increments the build number and injects it into the binary.
 
 ## Run
 

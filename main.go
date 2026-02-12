@@ -6,8 +6,9 @@ import (
 	"os"
 )
 
+var build = "0"
+
 func main() {
-	build := "2"
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -24,6 +25,10 @@ func main() {
 			supportedCommands["exit"].callback()
 		case "help":
 			supportedCommands["help"].callback()
+		case "map":
+			supportedCommands["map"].callback()
+		case "mapb":
+			supportedCommands["mapb"].callback()
 		default:
 			fmt.Printf("Unknown command: %s\n", input[0])
 		}
@@ -46,5 +51,27 @@ Usage:
 help: Displays a help message
 exit: Exits the Pokedex
 	`)
+	return nil
+}
+
+func commandMap() error {
+	locationAreas, err := fetchPokemonLocationAreas(false)
+	if err != nil {
+		return err
+	}
+	for _, area := range locationAreas {
+		fmt.Println(area.Name)
+	}
+	return nil
+}
+
+func commandMapb() error {
+	locationAreas, err := fetchPokemonLocationAreas(true)
+	if err != nil {
+		return err
+	}
+	for _, area := range locationAreas {
+		fmt.Println(area.Name)
+	}
 	return nil
 }

@@ -14,7 +14,17 @@ var supportedCommands = map[string]cliCommand{
 	},
 	"help": {
 		name:        "help",
-		description: "Show this help message",
+		description: "Show all commands",
 		callback:    commandHelp,
+	},
+	"map": {
+		name:        "map",
+		description: "Show all areas in a location",
+		callback:    commandMap,
+	},
+	"mapb": {
+		name:        "mapb",
+		description: "Show all areas in a location, going back one index",
+		callback:    commandMapb,
 	},
 }
