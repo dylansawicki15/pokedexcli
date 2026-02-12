@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 )
 
 var build = "0"
@@ -59,6 +60,11 @@ func main() {
 			if err != nil {
 				fmt.Println(err)
 			}
+		case "pokedex":
+			if err := commandPokedex(); err != nil {
+				fmt.Println(err)
+			}
+
 		default:
 			fmt.Printf("Unknown command: %s\n", input[0])
 		}
@@ -115,6 +121,25 @@ func commandExplore(areaName string) error {
 	fmt.Println("Found Pokemon:")
 	for _, encounter := range encounters {
 		fmt.Printf("- %s\n", encounter.Pokemon.Name)
+	}
+	return nil
+}
+
+func commandPokedex() error {
+	if len(pokedex) == 0 {
+		fmt.Println("Your Pokedex is empty.")
+		return nil
+	}
+
+	names := make([]string, 0, len(pokedex))
+	for n := range pokedex {
+		names = append(names, n)
+	}
+	sort.Strings(names)
+
+	fmt.Println("Your Pokedex:")
+	for _, n := range names {
+		fmt.Printf(" - %s\n", n)
 	}
 	return nil
 }

@@ -42,4 +42,9 @@ var supportedCommands = map[string]cliCommand{
 		description: "Inspect a caught Pokemon for more details",
 		callback:    nil,
 	},
+	"pokedex": {
+ 		name:        "pokedex",
+ 		description: "List your caught Pokemon",
+ 		callback:    commandPokedex,
+ 	},
 }
