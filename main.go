@@ -29,6 +29,16 @@ func main() {
 			supportedCommands["map"].callback()
 		case "mapb":
 			supportedCommands["mapb"].callback()
+		case "explore":
+			if len(input) < 2 {
+				fmt.Println("Please provide a location area to explore.")
+				continue
+			}
+			areaName := input[1]
+			err := commandExplore(areaName)
+			if err != nil {
+				fmt.Printf("Error exploring area: %v\n", err)
+			}
 		default:
 			fmt.Printf("Unknown command: %s\n", input[0])
 		}
@@ -72,6 +82,19 @@ func commandMapb() error {
 	}
 	for _, area := range locationAreas {
 		fmt.Println(area.Name)
+	}
+	return nil
+}
+
+func commandExplore(areaName string) error {
+	fmt.Printf("Exploring %s...\n", areaName)
+	encounters, err := fetchLocationAreaData(areaName)
+	if err != nil {
+		return err
+	}
+	fmt.Println("Found Pokemon:")
+	for _, encounter := range encounters {
+		fmt.Printf("- %s\n", encounter.Pokemon.Name)
 	}
 	return nil
 }

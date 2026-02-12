@@ -27,4 +27,9 @@ var supportedCommands = map[string]cliCommand{
 		description: "Show all areas in a location, going back one index",
 		callback:    commandMapb,
 	},
+	"explore": {
+		name:        "explore",
+		description: "Explore a location area for Pokemon encounters",
+		callback:    nil,
+	},
 }
